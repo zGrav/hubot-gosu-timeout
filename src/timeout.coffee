@@ -28,7 +28,7 @@ class Functions
             "fetch_existing": false,
             "fetch_pending": false,
             "fetch_banned": false,
-            "ban_duration": 10
+            "ban_duration": 15
         }
 
         string_query = JSON.stringify(query)
@@ -42,7 +42,7 @@ class Functions
                   robot.logger.error "Oh no! We errored under API :( - Response Code: #{res.statusCode}"
                   return
 
-              robot.logger.info "User #{username} banned for 10 seconds."
+              robot.logger.info "User #{username} banned for 15 seconds."
             catch error
                 robot.logger.error "Oh no! We errored :( - #{error} - API Response Code: #{res.statusCode}"
 
