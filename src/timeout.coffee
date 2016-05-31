@@ -42,7 +42,7 @@ class Functions
                   robot.logger.error "Oh no! We errored under API :( - Response Code: #{res.statusCode}"
                   return
 
-              robot.logger.info "User #{msg.envelope.user.display_name} banned for 10 seconds."
+              robot.logger.info "User #{msg.envelope.user.name} banned for 10 seconds."
             catch error
                 robot.logger.error "Oh no! We errored :( - #{error} - API Response Code: #{res.statusCode}"
 
@@ -50,35 +50,35 @@ module.exports = (robot) ->
     funcs = new Functions
 
     robot.hear /capslock/i, (msg) ->
-        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.channel)
+        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id)
 
         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
 
     robot.hear /uppercase > lowercase/i, (msg) ->
-        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.channel)
+        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id)
 
         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
 
     robot.hear /word repetition/i, (msg) ->
-        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.channel)
+        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id)
 
         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
 
     robot.hear /letter repetition/i, (msg) ->
-        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.channel)
+        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id)
 
         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
 
     robot.hear /random text/i, (msg) ->
-        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.channel)
+        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id)
 
