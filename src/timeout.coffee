@@ -21,20 +21,19 @@ class Functions
     timeoutUser: (hubid, userid, username) ->
         query = {
             "hub_id": hubid,
-            #"editer_id": global.user_id,
+            "editer_id": global.user_id,
             "user_id": userid,
-            "email": null,
-            "type": "BANNED",
-            "fetch_existing": false,
-            "fetch_pending": false,
-            "fetch_banned": false,
+            "type": 5,
+            "fetch_existing": true,
+            "fetch_pending": true,
+            "fetch_banned": true,
             "ban_duration": 15
         }
 
         string_query = JSON.stringify(query)
         content_length = string_query.length
 
-        robot.http(global.api + "/hub/" + hubid + "/members")
+        robot.http(global.api + "/hub/#{hubid}/members")
         .headers('Accept': 'application/json', 'Content-Type': 'application/json', 'Content-Length': content_length, 'X-Token': global.user_token)
         .post() (err, res, body) ->
             try
