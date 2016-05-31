@@ -19,15 +19,6 @@ class Functions
         null
 
     timeoutUser: (hubid, userid) ->
-            string hub_id = 1;
-            string editer_id = 2;
-            string user_id = 3;
-            string email = 4;
-            MembershipEntry.MembershipType type = 5;
-            bool fetch_existing = 6;
-            bool fetch_pending = 7;
-            bool fetch_banned = 8;
-            int64 ban_duration = 9;
         query = {
             "hub_id": hubid,
             #"editer_id": global.user_id,
