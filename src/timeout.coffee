@@ -1,5 +1,5 @@
 # Description:
-#   Timeout a user for 10 seconds
+#   Timeout a user for 15 seconds
 #
 # Dependencies:
 #   None
@@ -15,7 +15,7 @@ class Functions
             "channel_id": channelid,
             "kicked_id": userid,
             "ban": true,
-            "ban_duration": 10
+            "ban_duration": 15
         }
 
         string_query = JSON.stringify(query)
