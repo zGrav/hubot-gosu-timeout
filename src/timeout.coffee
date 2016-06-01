@@ -48,35 +48,35 @@ class Functions
 module.exports = (robot) ->
     funcs = new Functions
 
-    robot.hear /capslock/i, (msg) ->
+    robot.hear /spamscript: capslock/i, (msg) ->
         getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
 
         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
 
-    robot.hear /uppercase > lowercase/i, (msg) ->
+    robot.hear /spamscript: uppercase > lowercase/i, (msg) ->
         getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
 
         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
 
-    robot.hear /word repetition/i, (msg) ->
+    robot.hear /spamscript: word repetition/i, (msg) ->
         getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
 
         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
 
-    robot.hear /letter repetition/i, (msg) ->
+    robot.hear /spamscript: letter repetition/i, (msg) ->
         getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
 
         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
 
-    robot.hear /random text/i, (msg) ->
+    robot.hear /spamscript: random text/i, (msg) ->
         getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
