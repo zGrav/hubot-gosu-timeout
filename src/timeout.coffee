@@ -24,9 +24,9 @@ class Functions
             "editer_id": global.user_id,
             "user_id": userid,
             "type": 5,
-            "fetch_existing": true,
-            "fetch_pending": true,
-            "fetch_banned": true,
+            "fetch_existing": false,
+            "fetch_pending": false,
+            "fetch_banned": false,
             "ban_duration": 15
         }
 
@@ -35,7 +35,7 @@ class Functions
 
         robot.http(global.api + "/hub/#{hubid}/members")
         .headers('Accept': 'application/json', 'Content-Type': 'application/json', 'Content-Length': content_length, 'X-Token': global.user_token)
-        .post() (err, res, body) ->
+        .post(string_query) (err, res, body) ->
             try
               if res.statusCode isnt 200
                   robot.logger.error "Oh no! We errored under API :( - Response Code: #{res.statusCode}"
