@@ -62,13 +62,6 @@ module.exports = (robot) ->
 
         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
 
-    robot.hear /spamscript: word repetition/i, (msg) ->
-        getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
-
-        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
-
-        msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
-
     robot.hear /spamscript: letter repetition/i, (msg) ->
         getIdx = funcs.findKeyIndex(global.channels_by_index, 'id', msg.envelope.room)
 
