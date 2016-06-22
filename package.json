@@ -1,6 +1,6 @@
 {
   "name": "hubot-gosu-timeout",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Timeout a user for 15 seconds",
   "main": "index.coffee",
   "scripts": {
