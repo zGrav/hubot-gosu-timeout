@@ -61,8 +61,11 @@ module.exports = (robot) ->
 
             while i < result.existing_users.length
                 if result.existing_users[i].user_id == global.user_id #selfperm check
-                    if result.existing_users[i].type == 25
+                    if result.existing_users[i].type == 25 and global.is_sysop == false
                         global.robot.logger.warning("No permissions to timeout user: #{msg.envelope.user.name} on channel: #{msg.envelope.room} belonging to hub: #{hubid}")
+                    else if global.is_sysop == true
+                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        msg.reply "You have been timed out for 15 seconds due to triggering spam detection! (sysop)"
                     else if result.existing_users[i].type == 50
                         funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
