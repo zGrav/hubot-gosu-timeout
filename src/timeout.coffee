@@ -18,22 +18,16 @@ class Functions
             i++
         null
 
-    timeoutUser: (hubid, userid, username) ->
+    timeoutUser: (channelID, userID, username, reason) ->
         query = {
-            "hub_id": hubid,
-            "editer_id": global.user_id,
-            "user_id": userid,
-            "type": 5,
-            "fetch_existing": false,
-            "fetch_pending": false,
-            "fetch_banned": false,
-            "ban_duration": 15
+            "duration": 15,
+            "reason": reason
         }
 
         string_query = JSON.stringify(query)
         content_length = string_query.length
 
-        robot.http(global.api + "/hub/#{hubid}/members")
+        robot.http(global.api + "/channel/#{channelID}/timeout/#{userID}")
         .headers('Accept': 'application/json', 'Content-Type': 'application/json', 'Content-Length': content_length, 'X-Token': global.user_token)
         .post(string_query) (err, res, body) ->
             try
@@ -41,7 +35,7 @@ class Functions
                   robot.logger.error "Oh no! We errored under API :( - Response Code: #{res.statusCode}"
                   return
 
-              robot.logger.info "User #{username} banned for 15 seconds."
+               robot.logger.info "User #{username} timed out for 15 seconds."
             catch error
                 robot.logger.error "Oh no! We errored :( - #{error} - API Response Code: #{res.statusCode}"
 
@@ -64,13 +58,13 @@ module.exports = (robot) ->
                     if result.existing_users[i].type == 25 and global.is_sysop == false
                         global.robot.logger.warning("No permissions to timeout user: #{msg.envelope.user.name} on channel: #{msg.envelope.room} belonging to hub: #{hubid}")
                     else if global.is_sysop == true
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                     else if result.existing_users[i].type == 50
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                     else if result.existing_users[i].type == 75
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                 i++
 
@@ -90,10 +84,10 @@ module.exports = (robot) ->
                     if result.existing_users[i].type == 25
                         global.robot.logger.warning("No permissions to timeout user: #{msg.envelope.user.name} on channel: #{msg.envelope.room} belonging to hub: #{hubid}")
                     else if result.existing_users[i].type == 50
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                     else if result.existing_users[i].type == 75
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                 i++
 
@@ -113,10 +107,10 @@ module.exports = (robot) ->
                     if result.existing_users[i].type == 25
                         global.robot.logger.warning("No permissions to timeout user: #{msg.envelope.user.name} on channel: #{msg.envelope.room} belonging to hub: #{hubid}")
                     else if result.existing_users[i].type == 50
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                     else if result.existing_users[i].type == 75
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                 i++
 
@@ -136,10 +130,10 @@ module.exports = (robot) ->
                     if result.existing_users[i].type == 25
                         global.robot.logger.warning("No permissions to timeout user: #{msg.envelope.user.name} on channel: #{msg.envelope.room} belonging to hub: #{hubid}")
                     else if result.existing_users[i].type == 50
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                     else if result.existing_users[i].type == 75
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                 i++
 
@@ -159,10 +153,10 @@ module.exports = (robot) ->
                     if result.existing_users[i].type == 25
                         global.robot.logger.warning("No permissions to timeout user: #{msg.envelope.user.name} on channel: #{msg.envelope.room} belonging to hub: #{hubid}")
                     else if result.existing_users[i].type == 50
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                     else if result.existing_users[i].type == 75
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                 i++
 
@@ -182,9 +176,9 @@ module.exports = (robot) ->
                     if result.existing_users[i].type == 25
                         global.robot.logger.warning("No permissions to timeout user: #{msg.envelope.user.name} on channel: #{msg.envelope.room} belonging to hub: #{hubid}")
                     else if result.existing_users[i].type == 50
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                     else if result.existing_users[i].type == 75
-                        funcs.timeoutUser(global.channels_by_index[getIdx].hub_id, msg.envelope.user.id, msg.envelope.user.name)
+                        funcs.timeoutUser(msg.envelope.room, msg.envelope.user.id, msg.envelope.user.name, msg.envelope.message.text)
                         msg.reply "You have been timed out for 15 seconds due to triggering spam detection!"
                 i++
